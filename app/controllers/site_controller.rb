@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
   def index
-    redirect_to root_path
+    puts 'Server says, Welcome to MovieBank! root_url: ' + root_url
   end
 end

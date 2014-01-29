@@ -1,5 +1,4 @@
 Moviebank::Application.routes.draw do
-  get '/home' => 'site#index', as: :home
 
   root :to => 'site#index'
   # The priority is based upon order of creation: first created -> highest priority.
