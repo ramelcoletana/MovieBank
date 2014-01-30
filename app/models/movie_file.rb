@@ -1,0 +1,15 @@
+class MovieFile
+  include Mongoid::Document
+  include Mongoid::Paperclip
+
+=begin
+  field :path, type: string
+  field :type, type: String
+  field :size, type: Float
+=end
+
+  embedded_in :movie, inverse_of: :movie_files
+  has_mongoid_attached_file :attachment,
+      :path => ':rails_root/public/movies/:attachment/:id/:style/:filename',
+      :url => '/movies/:attachment/:id/:style/:filename'
+end

@@ -2,9 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
+gem 'activeresource', '~> 4.0.0'
+
 gem 'mongoid', '~> 4.0.0.alpha2'
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
-gem 'aws-sdk', '~> 1.32.0'
+gem 'aws-sdk', '~> 1.3.4'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
