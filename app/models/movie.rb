@@ -8,7 +8,10 @@ class Movie
   field :rating, type: Float
 
   has_many :movie_files
-  attr_accessor :movies_attributes
-  accepts_nested_attributes_for :movie_files, allow_destroy: true
-
+  attr_accessor :attachments
+=begin
+  has_mongoid_attached_file :attachments,
+                            :path => ':rails_root/public/movies/:attachment/:id/:style/:filename',
+                            :url => '/movies/:attachment/:id/:style/:filename'
+=end
 end

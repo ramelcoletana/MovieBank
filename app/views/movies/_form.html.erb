@@ -11,6 +11,19 @@
     </div>
   <% end %>
 
+    <div class="field">
+      <div class="drop_files_div">
+        Drop Here
+        <a>Browse</a>
+        <%= f.file_field :attachments, multiple: true, name: 'movie[attachments]' %>
+      </div>
+      <ul>
+        <!-- The file uploads will be shown here -->
+      </ul>
+      <!--%= f.file_field :movies_attributes %-->
+
+    </div>
+
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -19,17 +32,6 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
-
-   <div class="field">
-     <div class="drop-files-div">
-       Drop Here
-       <a>Browse</a>
-       <%= file_field_tag('movies_attributes',multiple:true, name: 'movie[movies_attributes][]') %>
-     </div>
-     <!--%= f.file_field :movies_attributes %-->
-
-   </div>
-    <div id="div_movie_files_preview" style="border: 1px solid"></div>
 
   <div class="field">
     <%= f.label :no_of_download %><br>
@@ -42,6 +44,7 @@
   <div class="actions">
     <%= f.submit class: 'btn_save_movie' %>
   </div>
+
 
 
 <% end %>

@@ -1,5 +1,7 @@
 Moviebank::Application.routes.draw do
 
+  resources :movie_files
+
   resources :movies
 
   root :to => 'site#index'

@@ -1,115 +1,93 @@
 $(function() {
-    /*var files = new Array();
+    var ul = $('.new_movie ul')
+    var files = new Array();
 
-    $('#movies_attributes').on('change', prepareUpload)
+    $('body').on('click', '.drop_files_div a', function() {
+        // Simulate a click on the file input button
+        // to show the file browser dialog
+        $(this).parent().find('input').click();
+    });
 
-    function prepareUpload(event) {
-        files.push(event.target.files);
-        printFile(files)
-    }
+    // Initialize the jQuery File Upload Plugin
+    $('.new_movie').fileupload({
+        // This element will accept drag/drop uploading
+        dropZone: $('.drop_files_div'),
 
+        //This function is called when a file is added  to the queue;
+        //either via the browse button, or via drag/drop:
+        add: function (e, data) {
+            files.push(data.files[0])
+            var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"'+
+                ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
 
-    function printFile(files){
-        var html="";
-        for (var i = 0; i < files.length; i++) {
-            console.log(files[i])
-            html += files[i][0]
-        }
-        $("#div_movie_files").html(html);
-    }*/
+            // Append the file name and file size
+            tpl.find('p').text(data.files[0].name).append('<i>'+formatFileSizeBytes(data.files[0].size)+'</i>')
 
-    /*var dropArea = document.getElementById('movies_attributes'),
-        viewArea = document.getElementById('div_movie_files_preview')
+            // Add HTML to UL element
+            data.context = tpl.appendTo(ul)
 
-    //console.log(dropArea)
-    dropArea.addEventListener('drop', function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
+            // Initialize the knob plugin
+            tpl.find('input').knob();
 
-        previewFiles(evt.dataTransfer.files)
-        return false;
-
-    }, false)
-
-    function previewFiles(files) {
-        for (var i = 0; i <files.length; i++) {
-            if (typeof FileReader != "undefined") {
-                var img = document.createElement('img');
-                viewArea.appendChild(img)
-
-                var reader = new FileReader();
-                reader.onload = (function (theImg) {
-                    return function(evt) {
-                        theImg.src = evt.target.result;
-                    }
-                }(img))
-                reader.readAsDataURL(files[i])
-            }
-        }
-
-        uploadFiles(files)
-    }
-
-    function uploadFiles(files) {
-        var formData = new FormData();
-        var position = 0;
-        var max = files.length;
-        if (typeof formData != "undefined") {
-            function queue() {
-                if (max >=1 && position <= max - 1) {
-                    formData.append("file", files[position]);
-                    console.log(formData)
-                    upload();
+            //Listen for clicks on the cancel icon
+            tpl.find('span').click(function(){
+                console.log(tpl)
+                if(tpl.hasClass('working')) {
+                    jqXHR.abort()
                 }
-            }
 
-            function upload() {
-                $.ajax({
-                    url: '/movies/create',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    type: 'POST',
-                    success: function(data) {
-                        console.log("Success!.." + data)
-                        position = position + 1
-                        queue()
-                    },
-                    error: function() {
-                        console.log("Error in fetching data..")
-                    }
+                tpl.fadeOut(function(){
+                    tpl.remove()
                 })
+            })
+
+            // Automatically upload the file once it is added on queue
+            var jqXHR = data.submit()
+        },
+        progress: function (e, data) {
+            // Calculate the completion percentage of the upload
+            var progress = parseInt(data.loaded / data.total * 100, 10)
+
+            // Update the hidden input field and trigger a change
+            // so that a jQuery knob plugin knows to update the dial
+            data.context.find('input').val(progress).change()
+
+            if(progress == 100) {
+                data.context.removeClass('working');
             }
+        },
+        fail: function (e, data) {
+            // Something has gone wrong!
+            data.context.addClass('error')
         }
+    });
+
+    // Prevent the default action when a file is dropped on the window
+    $(document).on('drop dragover', function (e) {
+        e.preventDefault()
+    })
+
+    // Helper function that formats the file sizes
+    function formatFileSizeBytes(bytes) {
+        if (typeof bytes != 'number') {
+            return '';
+        }
+
+        if (bytes >= 1000000000) {
+            return (bytes / 1000000000).toFixed(2) + 'GB'
+        }
+
+        if (bytes >= 1000000) {
+            return (bytes / 1000000).toFixed(2) + 'MB'
+        }
+
+        return (bytes / 1000).toFixed(2) + 'KB'
     }
 
-    //addEventListener 'dragenter'
-    dropArea.addEventListener("dragenter", function (evt) {
-        if (evt) {
-            this.className = "drag-enter";
-        }
-        endFn(evt)
-    }, false)
-
-    //addEventListener 'dragleave'
-    dropArea.addEventListener("dragleave", function (evt) {
-        this.className = ""
-        endFn(evt)
-    }, false)
-
-    //addEventListener 'dragover'
-    dropArea.addEventListener("dragover", function (evt) {
-        endFn(evt)
-        evt.dataTransfer.dropEffect = 'move'
+    $('.btn_save_movie').click(function(){
+        var data = JSON.stringify($('.new_movie').serializeArray())
+        console.log(data[0])
 
         return false;
-    }, false)
-
-    function endFn(evt) {
-        evt.preventDefault()
-        evt.stopPropagation()
-    }*/
-
-    //Using jquery-fileupload
-
+    })
 })
