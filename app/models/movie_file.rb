@@ -7,9 +7,10 @@ class MovieFile
   field :type, type: String
   field :size, type: Float
 =end
-
-  embedded_in :movie, inverse_of: :movie_files
+  belongs_to :movie
   has_mongoid_attached_file :attachment,
-      :path => ':rails_root/public/movies/:attachment/:id/:style/:filename',
-      :url => '/movies/:attachment/:id/:style/:filename'
+                            :path => ':rails_root/public/movies/:attachment/:id/:style/:filename',
+                            :url => '/movies/:attachment/:id/:style/:filename'
+
+
 end

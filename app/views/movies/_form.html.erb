@@ -21,9 +21,15 @@
   </div>
 
    <div class="field">
-     <%= f.label :attachment %><br>
-     <%= f.file_field :attachment %>
+     <div class="drop-files-div">
+       Drop Here
+       <a>Browse</a>
+       <%= file_field_tag('movies_attributes',multiple:true, name: 'movie[movies_attributes][]') %>
+     </div>
+     <!--%= f.file_field :movies_attributes %-->
+
    </div>
+    <div id="div_movie_files_preview" style="border: 1px solid"></div>
 
   <div class="field">
     <%= f.label :no_of_download %><br>
@@ -34,6 +40,8 @@
     <%= f.text_field :rating %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn_save_movie' %>
   </div>
+
+
 <% end %>

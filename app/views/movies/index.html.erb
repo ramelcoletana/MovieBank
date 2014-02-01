@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>++</th>
       <th>Title</th>
       <th>Description</th>
       <th>No of download</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @movies.each do |movie| %>
       <tr>
+        <td><!--%= image_tag movie.attachment.url, class: 'image' %--></td>
         <td><%= movie.title %></td>
         <td><%= movie.description %></td>
         <td><%= movie.no_of_download %></td>
