@@ -16,3 +16,6 @@
 /tmp
 /.idea
 .idea
+
+# Ignore files
+/public/movies

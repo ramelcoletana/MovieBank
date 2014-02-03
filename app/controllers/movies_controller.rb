@@ -5,6 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.all
+
   end
 
   # GET /movies/1
@@ -16,6 +17,7 @@ class MoviesController < ApplicationController
   # GET /movies/new
   def new
     @movie = Movie.new
+    @movie_file = MovieFile.new
   end
 
   # GET /movies/1/edit
@@ -25,11 +27,20 @@ class MoviesController < ApplicationController
   # POST /movies
   # POST /movies.json
   def create
-    @movie = Movie.new(movie_params)
-    puts "Movie parameters: #{movie_files_params}"
+    @movie = Movie.new(params[:movie])
+    puts "Movie parameters: #{params[:movie_file][:file]}"
+    movie_files = params[:movie_file][:file]
 
+    @movie_files =[]
+    movie_files.each do |movie_file|
+      @movie_files << MovieFile.new(file: movie_file)
+    end
     respond_to do |format|
-      if @movie.save
+      if @movie.valid? && @movie_files.each {|movie_file| movie_file.valid?}
+        @movie_files.each {|movie_file| movie_file.save}
+        @movie.movie_files = @movie_files.to_a
+        puts "Movie files array: #{@movie.movie_files}"
+        @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
         format.json { render action: 'show', status: :created, location: @movie }
       else
@@ -74,7 +85,7 @@ class MoviesController < ApplicationController
       params.require(:movie).permit(:title, :description, :no_of_download, :rating)
     end
 
-    def movie_files_params
-      params.require(:movie).permit(:attachments)
+    def movie_file_params
+      params.require(:movie_file).permit!
     end
 end

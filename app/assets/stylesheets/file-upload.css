@@ -50,11 +50,11 @@ section, footer, header, aside{
 
 .new_movie{
     font-family:'PT Sans Narrow', sans-serif;
-    background-color:#373a3d;
+    /*background-color:#373a3d;
 
     background-image:-webkit-linear-gradient(top, #373a3d, #313437);
     background-image:-moz-linear-gradient(top, #373a3d, #313437);
-    background-image:linear-gradient(top, #373a3d, #313437);
+    background-image:linear-gradient(top, #373a3d, #313437);*/
 
     width:250px;
     padding:30px;

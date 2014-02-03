@@ -1,28 +1,15 @@
 <%= form_for @movie, html: {multipart: true} do |f| %>
-  <% if @movie.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+    <%= display_errors @movie, @movie_file %>
 
-      <ul>
-      <% @movie.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-    <div class="field">
+    <!--<div class="field">
       <div class="drop_files_div">
         Drop Here
         <a>Browse</a>
-        <%= f.file_field :attachments, multiple: true, name: 'movie[attachments]' %>
-      </div>
-      <ul>
-        <!-- The file uploads will be shown here -->
-      </ul>
-      <!--%= f.file_field :movies_attributes %-->
 
-    </div>
+      </div>
+      <ul class="files_ul">
+      </ul>
+    </div>-->
 
   <div class="field">
     <%= f.label :title %><br>
@@ -41,10 +28,12 @@
     <%= f.label :rating %><br>
     <%= f.text_field :rating %>
   </div>
+    <h4>Attach files</h4>
+    <%= fields_for @movie_file do |movie_file| %>
+        <%= movie_file.file_field :file, multiple: true %>
+    <% end %>
   <div class="actions">
     <%= f.submit class: 'btn_save_movie' %>
   </div>
-
-
 
 <% end %>

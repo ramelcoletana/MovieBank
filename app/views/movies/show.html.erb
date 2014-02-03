@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <!--%= image_tag @movie.attachment.url, class: 'image' %-->
+  <% @movie.movie_files.each do |movie_file| %>
+    <%= movie_file_map movie_file %>
+  <% end %>
 </p>
 <p>
   <strong>Title:</strong>
