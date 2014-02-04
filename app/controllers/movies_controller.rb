@@ -27,19 +27,20 @@ class MoviesController < ApplicationController
   # POST /movies
   # POST /movies.json
   def create
-    @movie = Movie.new(params[:movie])
-    puts "Movie parameters: #{params[:movie_file][:file]}"
+    @movie = Movie.new(movie_params)
     movie_files = params[:movie_file][:file]
+    if movie_files.nil?
+      puts "Movie files is null"
+    end
 
-    @movie_files =[]
+    @movie_files = []
     movie_files.each do |movie_file|
       @movie_files << MovieFile.new(file: movie_file)
     end
     respond_to do |format|
-      if @movie.valid? && @movie_files.each {|movie_file| movie_file.valid?}
+      if @movie.valid?
         @movie_files.each {|movie_file| movie_file.save}
         @movie.movie_files = @movie_files.to_a
-        puts "Movie files array: #{@movie.movie_files}"
         @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
         format.json { render action: 'show', status: :created, location: @movie }
@@ -83,9 +84,5 @@ class MoviesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :description, :no_of_download, :rating)
-    end
-
-    def movie_file_params
-      params.require(:movie_file).permit!
     end
 end
