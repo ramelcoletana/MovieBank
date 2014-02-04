@@ -1,4 +1,5 @@
 module MoviesHelper
+
   def movie_file_map(mf)
     movie_file_a = mf.file
     if(movie_file_a.content_type == 'image/png')
@@ -8,4 +9,5 @@ module MoviesHelper
     end
 
   end
+
 end
