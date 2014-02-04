@@ -4,7 +4,7 @@ gem 'rails', '4.0.0'
 
 gem 'activeresource', '~> 4.0.0'
 
-gem 'mongoid', '~> 4.0.0.alpha2'
+gem 'mongoid', '~> 4.0.0.beta1'
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'rmagick', '~> 2.13.2'

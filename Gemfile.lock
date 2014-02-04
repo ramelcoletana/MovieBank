@@ -161,7 +161,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-fileupload-rails
   jquery-rails
-  mongoid (~> 4.0.0.alpha2)
+  mongoid (~> 4.0.0.beta1)
   mongoid-paperclip
   rails (= 4.0.0)
   rmagick (~> 2.13.2)
