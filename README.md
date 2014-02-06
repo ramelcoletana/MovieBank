@@ -1,4 +1,4 @@
-== FIX BUGS FROM PAPERCLIP GEM
+# FIX BUGS FROM PAPERCLIP GEM
 `error: undefined method `after_commit' for MovieFile::Class`
 
 ```ruby
