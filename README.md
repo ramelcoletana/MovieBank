@@ -1,6 +1,8 @@
 # FIX BUGS FROM PAPERCLIP GEM
 `error: undefined method `after_commit' for MovieFile::Class`
 
+`open gem paperclip/lib/paperclip/has_attached_file.rb`
+
 ```ruby
 def add_active_record_callbacks
     name = @name
