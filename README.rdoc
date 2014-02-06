@@ -28,19 +28,20 @@ Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
 == FIX BUGS FROM PAPERCLIP GEM
+`error: undefined method `after_commit' for MovieFile::Class`
 
 ```ruby
-error: undefined method `after_commit' for MovieFile::Class
-
 def add_active_record_callbacks
     name = @name
     @klass.send(:after_save) { send(name).send(:save) }
     @klass.send(:before_destroy) { send(name).send(:queue_all_for_delete) }
     @klass.send(:after_commit, :on => :destroy) { send(name).send(:flush_deletes) }
 end
+```
 
 `change to`
 
+```ruby
 def add_active_record_callbacks
     name = @name
     @klass.send(:after_save) { send(name).send(:save) }
@@ -52,3 +53,4 @@ def add_active_record_callbacks
         @klass.send(:after_destroy) { send(name).send(:flush_deletes) }
     end
 end
+```
